@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: test-plugin\n"
+"POT-Creation-Date: 2013-07-22 16:30+0900\n"
+"PO-Revision-Date: 2013-07-22 16:30+0900\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
+"X-Poedit-Basepath: C:\\xampp\\htdocs\\ls\\fs\\urbanport\\wp\\wp-content"
+"\\plugins\\test-plugin\\lang\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../sm-uploader.php:31 ../sm-uploader.php:32
+msgid "SM Uploader"
+msgstr "アップローダー"
+
+#: ../sm-uploader.php:77
+msgid "Success!!"
+msgstr "アップデートに成功しました。"
+
+#: ../sm-uploader.php:110
+msgid "Gallery image uploader"
+msgstr "画像アップローダー"
+
+#: ../sm-uploader.php:114
+msgid "Add images"
+msgstr "画像を追加"
+
+#: ../sm-uploader.php:134
+msgid "Title"
+msgstr "画像タイトル"
+
+#: ../sm-uploader.php:138
+msgid "Image"
+msgstr "画像"
+
+#: ../sm-uploader.php:138
+msgid "Select image"
+msgstr "画像を選択"
+
+#: ../sm-uploader.php:149
+msgid "Add image"
+msgstr "画像を追加する"
+
+#: ../sm-uploader.php:150
+msgid "Remove image"
+msgstr "画像を削除する"
+
+#: ../sm-uploader.php:161
+msgid "Save Changes"
+msgstr "保存"
