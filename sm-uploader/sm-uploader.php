@@ -11,8 +11,10 @@ Text Domain: sm-uploader
 Domain Path: /lang
 
 */
-const DOMAIN = "sm-uploader";
-const OPTION_BASE_NAME = "sm_img";
+
+define('DOMAIN', "sm-uploader");
+define('OPTION_BASE_NAME', "sm_img");
+define('PLG_DIR', dirname( plugin_basename( __FILE__ ) ));
 
 new my_plugin();
 
@@ -20,7 +22,7 @@ class my_plugin {
 
 function __construct()
 {
-    load_plugin_textdomain(DOMAIN, false, dirname( plugin_basename( __FILE__ ) ).'/lang');
+    load_plugin_textdomain(DOMAIN, false, PLG_DIR .'/lang');
     //load_plugin_textdomain(self::DOMAIN, false, basename( dirname( __FILE__ ) ).'/lang' );
     add_action('admin_menu', array(&$this, 'admin_menu'));
 }
@@ -80,26 +82,34 @@ public function admin_page()
 
 ?>
 <style type="text/css">
-#galleryArea img
-{
-    max-width: 80px;
-    max-height: 80px;
-    margin: 5px;
-    border: 1px solid #cccccc;
+#galleryArea div.img img{
+max-width: 80px;
+max-height: 80px;
+margin: 5px;
+border: 1px solid #cccccc;
 }
 
 #galleryArea ul li{
-    border:1px solid #dfdfdf;
-    background-color: #f9f9f9;
-    margin: 5px;
-    padding: 5px;
-    cursor: move;
+border:1px solid #dfdfdf;
+background-color: #f9f9f9;
+margin: 5px;
+padding: 5px;
+cursor: move;
+}
+
+#galleryArea .addimg{
+text-align: right;
 }
 
 #galleryArea .addimg ul li{
-    border:none;
-    display: inline;
+border:none;
+display: inline;
 } 
+
+#galleryArea .addimg ul li a img{
+margin: 0 5px 0 0;
+vertical-align: middle;
+}
 
 #galleryArea table{
 width: 100%;
@@ -130,12 +140,13 @@ width: 100%;
         <li id="gal_<?php echo $i; ?>" class="cont">
             <table>
                 <tr>
-                <td width="25%">
+                <td width="30%">
                     <label class="title"><?php _e('Title', DOMAIN) ?>:</label>
                     <input type="text" name="sm_title[]" value="<?php echo $imgTitle; ?>" class="title" size="40">
                 </td>
                 <td width="10%">
-                    <label class="img"><?php _e('Image', DOMAIN) ?>:</label><button class="demo-media" class="button"><?php _e('Select image', DOMAIN) ?></button>
+                    <label class="img"><?php _e('Image', DOMAIN) ?>:</label>
+                    <input type="button" class="button demo-media" value="<?php _e('Select image', DOMAIN) ?>">
                 </td>
                 <td width="15%">
                     <div class="img">
@@ -146,8 +157,8 @@ width: 100%;
                 <td>
                     <div class="addimg">
                         <ul>
-                            <li><a href="#" class="add"><?php _e('Add image', DOMAIN) ?></a></li>
-                            <li><a href="#" class="remove" <?php echo ($amtImages <= 1)? 'style="display:none"':''; ?>><?php _e('Remove image', DOMAIN) ?></a></li>
+                            <li><a href="#" class="add"><img src="<?php echo plugins_url() . '/' . PLG_DIR; ?>/img/add.png" alt="add" /><?php _e('Add image', DOMAIN) ?></a></li>
+                            <li><a href="#" class="remove" <?php echo ($amtImages <= 1)? 'style="display:none"':''; ?>><img src="<?php echo plugins_url() . '/' .PLG_DIR; ?>/img/delete.png" alt="delete" /><?php _e('Remove image', DOMAIN) ?></a></li>
                         </ul>
                     </div>
                 </td>
