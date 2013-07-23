@@ -170,6 +170,8 @@ width: 100%;
 ?>
     </ul>
 <input type="submit" name="Submit" class="button-primary" value="<?php _e('Save Changes', DOMAIN) ?>" />
+<span id="notice_message" class="notice" style="display:none"><?php  _e('Updeted contents.', DOMAIN); ?></span>
+<span id="leave_message" class="" style="display:none"><?php  _e('Some contents updated. It will delete if you leave this page.', DOMAIN); ?></span>
 </form>
 </div><!--/.inside-->
 </div><!--/#galleryArea-->

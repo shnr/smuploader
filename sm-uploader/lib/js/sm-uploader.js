@@ -1,5 +1,6 @@
 var parentCl;
 var currentlength; // current list amount
+var updated_flag;
 
 jQuery(document).ready(function($){
     var Gals = $("#galleryArea").find("ul.gal");        
@@ -7,7 +8,15 @@ jQuery(document).ready(function($){
 
     // sortable
     $(function() {
-        $( "#sortable" ).sortable();
+        $( "#sortable" ).sortable({
+        connectWith: ['ul'],
+        placeholder: 'placeholder',
+        opacity:'0.5',
+        update: function (e, ui) {
+            updated_flag = 1;
+            chk_updated();
+        }
+        });
         $( "#sortable" ).disableSelection();
     });
 
@@ -39,7 +48,6 @@ jQuery(document).ready(function($){
                     file.toJSON() contains image informations.
                 */
                 var imgFrame = $("#galleryArea").find('ul.gal').find('#'+parentCl).find('div.img');
-                console.log(imgFrame);
                 if( imgFrame.find("img") != null ){
                     // if image already exist
                     imgFrame.find('img').remove();
@@ -49,6 +57,9 @@ jQuery(document).ready(function($){
                 $("#galleryArea").find('ul.gal').find('#'+parentCl).find('div.img').find('input.img')
                         .val(file.toJSON().id);
             });
+            updated_flag = 1;
+            chk_updated();
+
         });
         custom_uploader.open();
     })
@@ -69,18 +80,36 @@ jQuery(document).ready(function($){
         clone.find("input.title").val(''); // remove title value
         clone.find("div.addimg").find('ul').find('li').find("a.remove").css('display','inline'); // show remove button
 
-
         parentUl.append(clone);
+
         return false;
     })
 
     // Remove Element
     $('#galleryArea a.remove').on('click', function(){
         var target = $(this).parents('li.cont');
-        target.remove();        
+        target.fadeOut(300);
+        var removeTarget = setTimeout(function(){
+            target.remove(); 
+            clearTimeout(removeTarget);
+            updated_flag = 1;
+            chk_updated();
+     
+        }, 500);
+
 
         return false;
     })
 
+    $('input.title').change(function(){
+        updated_flag = 1;
+        chk_updated();
+    })
+
 });
 
+function chk_updated(){
+    if(updated_flag){
+        jQuery('#notice_message').css('display', 'inline');
+    }
+}
