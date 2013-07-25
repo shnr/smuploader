@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: test-plugin\n"
-"POT-Creation-Date: 2013-07-22 16:30+0900\n"
-"PO-Revision-Date: 2013-07-22 16:30+0900\n"
+"Project-Id-Version: sm-uploader\n"
+"POT-Creation-Date: 2013-07-23 12:26+0900\n"
+"PO-Revision-Date: 2013-07-25 11:13+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: Japanese\n"
@@ -16,42 +16,50 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../sm-uploader.php:31 ../sm-uploader.php:32
+#: ../sm-uploader.php:33 ../sm-uploader.php:34
 msgid "SM Uploader"
 msgstr "アップローダー"
 
-#: ../sm-uploader.php:77
+#: ../sm-uploader.php:79
 msgid "Success!!"
 msgstr "アップデートに成功しました。"
 
-#: ../sm-uploader.php:110
+#: ../sm-uploader.php:120
 msgid "Gallery image uploader"
 msgstr "画像アップローダー"
 
-#: ../sm-uploader.php:114
+#: ../sm-uploader.php:124
 msgid "Add images"
 msgstr "画像を追加"
 
-#: ../sm-uploader.php:134
+#: ../sm-uploader.php:144
 msgid "Title"
 msgstr "画像タイトル"
 
-#: ../sm-uploader.php:138
+#: ../sm-uploader.php:148
 msgid "Image"
 msgstr "画像"
 
-#: ../sm-uploader.php:138
+#: ../sm-uploader.php:149
 msgid "Select image"
 msgstr "画像を選択"
 
-#: ../sm-uploader.php:149
+#: ../sm-uploader.php:160
 msgid "Add image"
 msgstr "画像を追加する"
 
-#: ../sm-uploader.php:150
+#: ../sm-uploader.php:161
 msgid "Remove image"
 msgstr "画像を削除する"
 
-#: ../sm-uploader.php:161
+#: ../sm-uploader.php:172
 msgid "Save Changes"
 msgstr "保存"
+
+#: ../sm-uploader.php:173
+msgid "Updeted contents."
+msgstr "更新された内容があります"
+
+#: ../sm-uploader.php:174
+msgid "Some contents updated. It will delete if you leave this page."
+msgstr "ページを離れると更新された内容は失われます。"

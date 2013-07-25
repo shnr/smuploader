@@ -7,14 +7,14 @@ Author: shotanara@shnr.net
 Version: 0.1.0
 Author URI: http://blog.shnr.net
 License: GPLv2
-Text Domain: sm-uploader
-Domain Path: /lang
 
 */
 
-define('DOMAIN', "sm-uploader");
-define('OPTION_BASE_NAME', "sm_img");
-define('PLG_DIR', dirname( plugin_basename( __FILE__ ) ));
+define('SMUPL_DOMAIN', "sm-uploader");
+define('SMUPL_OPTION_BASE_NAME', "sm_img");
+define('SMUPL_PLG_DIR', dirname( plugin_basename( __FILE__ ) ));
+load_plugin_textdomain(SMUPL_DOMAIN, false, SMUPL_PLG_DIR .'/lang');
+
 
 new my_plugin();
 
@@ -22,24 +22,21 @@ class my_plugin {
 
 function __construct()
 {
-    load_plugin_textdomain(DOMAIN, false, PLG_DIR .'/lang');
-    //load_plugin_textdomain(self::DOMAIN, false, basename( dirname( __FILE__ ) ).'/lang' );
+    //load_plugin_textdomain(self::SMUPL_DOMAIN, false, basename( dirname( __FILE__ ) ).'/lang' );
     add_action('admin_menu', array(&$this, 'admin_menu'));
 }
 
 public function admin_menu()
 {
     $hook = add_menu_page(
-        __('SM Uploader', DOMAIN),
-        __('SM Uploader', DOMAIN),
+        __('SM Uploader', SMUPL_DOMAIN),
+        __('SM Uploader', SMUPL_DOMAIN),
         'update_core',
-        DOMAIN,
+        SMUPL_DOMAIN,
         array(&$this, 'admin_page')
     );
     add_action('admin_print_scripts-'.$hook, array(&$this, 'admin_scripts')); 
-
-    wp_register_script( 'jquery-ui', plugin_dir_url(__FILE__)  . '/lib/js/jquery-ui-1.9.2.custom.min.js');
-    wp_enqueue_script( 'jquery-ui' );
+    wp_enqueue_script( 'jquery-ui-sortable' );
 }
 
 /*
@@ -63,20 +60,20 @@ public function admin_page()
 
                 if($opt_imgs[$i] != ''):
                     // save option if image is exit.
-                    update_option( OPTION_BASE_NAME . "_" . $i, $opt_imgs[$i] );
-                    update_option( OPTION_BASE_NAME . "_title_" . $i, $opt_titles[$i] );
+                    update_option( SMUPL_OPTION_BASE_NAME . "_" . $i, $opt_imgs[$i] );
+                    update_option( SMUPL_OPTION_BASE_NAME . "_title_" . $i, $opt_titles[$i] );
                     $num++;
                 endif;
                 
             }
             // record how many options updated,
             $num = ($num == 0)? $num+1 : $num; 
-            update_option( OPTION_BASE_NAME . "_amt", $num );
+            update_option( SMUPL_OPTION_BASE_NAME . "_amt", $num );
 
         endif;
     
 ?>
-<div class="updated"><p><strong><?php _e('Success!!', DOMAIN) ?></strong></p></div>
+<div class="updated"><p><strong><?php _e('Success!!', SMUPL_DOMAIN) ?></strong></p></div>
 <?php
     }
 
@@ -117,36 +114,36 @@ width: 100%;
 
 </style>
 <div class="wrap" >
-<h2><?php _e('Gallery image uploader', DOMAIN) ?></h2>
+<h2><?php _e('Gallery image uploader', SMUPL_DOMAIN) ?></h2>
 <div id='poststuff'>
 
 <div id='galleryArea' class="postbox">
-<h3 class=""><span><?php _e('Add images', DOMAIN); ?></span></h3>
+<h3 class=""><span><?php _e('Add images', SMUPL_DOMAIN); ?></span></h3>
 <div class="inside">
 <form name="form" method="post" action="">
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
     <ul class='gal' id="sortable">
 
 <?php
-    $amtImages = (get_option(OPTION_BASE_NAME . "_amt"))? get_option(OPTION_BASE_NAME . "_amt") : 1;
+    $amtImages = (get_option(SMUPL_OPTION_BASE_NAME . "_amt"))? get_option(SMUPL_OPTION_BASE_NAME . "_amt") : 1;
 
     for($i=0; $i<$amtImages; $i++){
 
-        $imgId = (get_option(OPTION_BASE_NAME . "_" . $i))? (get_option(OPTION_BASE_NAME . "_" . $i)) : "";
+        $imgId = (get_option(SMUPL_OPTION_BASE_NAME . "_" . $i))? (get_option(SMUPL_OPTION_BASE_NAME . "_" . $i)) : "";
         $image = wp_get_attachment_image( $imgId);
-        $imgTitle = (get_option(OPTION_BASE_NAME . "_title_" . $i))? (get_option(OPTION_BASE_NAME . "_title_" . $i)) : "";
+        $imgTitle = (get_option(SMUPL_OPTION_BASE_NAME . "_title_" . $i))? (get_option(SMUPL_OPTION_BASE_NAME . "_title_" . $i)) : "";
 
 ?>
         <li id="gal_<?php echo $i; ?>" class="cont">
             <table>
                 <tr>
                 <td width="30%">
-                    <label class="title"><?php _e('Title', DOMAIN) ?>:</label>
+                    <label class="title"><?php _e('Title', SMUPL_DOMAIN) ?>:</label>
                     <input type="text" name="sm_title[]" value="<?php echo $imgTitle; ?>" class="title" size="40">
                 </td>
                 <td width="10%">
-                    <label class="img"><?php _e('Image', DOMAIN) ?>:</label>
-                    <input type="button" class="button demo-media" value="<?php _e('Select image', DOMAIN) ?>">
+                    <label class="img"><?php _e('Image', SMUPL_DOMAIN) ?>:</label>
+                    <input type="button" class="button demo-media" value="<?php _e('Select image', SMUPL_DOMAIN) ?>">
                 </td>
                 <td width="15%">
                     <div class="img">
@@ -157,8 +154,8 @@ width: 100%;
                 <td>
                     <div class="addimg">
                         <ul>
-                            <li><a href="#" class="add"><img src="<?php echo plugins_url() . '/' . PLG_DIR; ?>/img/add.png" alt="add" /><?php _e('Add image', DOMAIN) ?></a></li>
-                            <li><a href="#" class="remove" <?php echo ($amtImages <= 1)? 'style="display:none"':''; ?>><img src="<?php echo plugins_url() . '/' .PLG_DIR; ?>/img/delete.png" alt="delete" /><?php _e('Remove image', DOMAIN) ?></a></li>
+                            <li><a href="#" class="add"><img src="<?php echo plugins_url() . '/' . SMUPL_PLG_DIR; ?>/img/add.png" alt="add" /><?php _e('Add image', SMUPL_DOMAIN) ?></a></li>
+                            <li><a href="#" class="remove" <?php echo ($amtImages <= 1)? 'style="display:none"':''; ?>><img src="<?php echo plugins_url() . '/' .SMUPL_PLG_DIR; ?>/img/delete.png" alt="delete" /><?php _e('Remove image', SMUPL_DOMAIN) ?></a></li>
                         </ul>
                     </div>
                 </td>
@@ -169,9 +166,9 @@ width: 100%;
     }
 ?>
     </ul>
-<input type="submit" name="Submit" class="button-primary" value="<?php _e('Save Changes', DOMAIN) ?>" />
-<span id="notice_message" class="notice" style="display:none"><?php  _e('Updeted contents.', DOMAIN); ?></span>
-<span id="leave_message" class="" style="display:none"><?php  _e('Some contents updated. It will delete if you leave this page.', DOMAIN); ?></span>
+<input type="submit" name="Submit" class="button-primary" value="<?php _e('Save Changes', SMUPL_DOMAIN) ?>" />
+<span id="notice_message" class="notice" style="display:none"><?php  _e('Updeted contents.', SMUPL_DOMAIN); ?></span>
+<span id="leave_message" class="" style="display:none"><?php  _e('Some contents updated. It will delete if you leave this page.', SMUPL_DOMAIN); ?></span>
 </form>
 </div><!--/.inside-->
 </div><!--/#galleryArea-->
@@ -207,12 +204,12 @@ public function admin_scripts()
 public function get_gallery_images()
 {
     $result = array();
-    $amtImages = (get_option(OPTION_BASE_NAME . "_amt"))? get_option(OPTION_BASE_NAME . "_amt") : 
+    $amtImages = (get_option(SMUPL_OPTION_BASE_NAME . "_amt"))? get_option(SMUPL_OPTION_BASE_NAME . "_amt") : 
     "" ;
 
     for($i=0; $i<$amtImages; $i++){
-        $imgId = (get_option(OPTION_BASE_NAME . "_" . $i))? (get_option(OPTION_BASE_NAME . "_" . $i)) : "";
-        $imgTitle = (get_option(OPTION_BASE_NAME . "_title_" . $i))? (get_option(OPTION_BASE_NAME . "_title_" . $i)) : "";
+        $imgId = (get_option(SMUPL_OPTION_BASE_NAME . "_" . $i))? (get_option(SMUPL_OPTION_BASE_NAME . "_" . $i)) : "";
+        $imgTitle = (get_option(SMUPL_OPTION_BASE_NAME . "_title_" . $i))? (get_option(SMUPL_OPTION_BASE_NAME . "_title_" . $i)) : "";
         $imgInfo = array($imgId, $imgTitle);
         $result[] = $imgInfo;
 
